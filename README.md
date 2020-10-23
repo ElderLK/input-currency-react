@@ -10,6 +10,10 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
   npm install input-currency-react  # or yarn add input-currency-react
 ```
 
+## Playground - Try it out
+
+[On Code Sandbox](https://codesandbox.io/s/input-currency-react-7vsbo?file=/src/App.tsx)
+
 ## How to use Components
 
 ### Only Currency Input
