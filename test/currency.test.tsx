@@ -5,7 +5,7 @@ import { Default as CurrencyInput } from '../stories/CurrencyInput.stories';
 describe('Renders Tests', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<CurrencyInput value=""/>, div);
+    ReactDOM.render(<CurrencyInput value="" />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
