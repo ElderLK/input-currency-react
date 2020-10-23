@@ -29,14 +29,7 @@ const Template: Story<CurrencyInputProps> = args => <CurrencyInput {...args} />;
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
 
-Default.args = { value: '-400', 
-  onChangeEvent(inputElement, maskedValue, value){
-    // console.log('inputElement', inputElement)
-    // console.log('maskedValue', maskedValue)
-    // console.log('value', value)
-    console.log('Call onChange');
-  } 
-};
+Default.args = { value: '-400' };
 
 const Template2: Story<CurrencyCalculatorInputProps> = args => <CurrencyCalculatorInput {...args} />;
 
@@ -48,11 +41,5 @@ withCalculator.args = { value: '200',
   options: { 
     i18nCurrency: Currencies["Brazilian Real"],
     locale: Locales["Portuguese (Brazil)"]
-  },
-  onChangeEvent(inputElement, maskedValue, value){
-    // console.log('inputElement withCalculator', inputElement)
-    // console.log('maskedValue withCalculator', maskedValue)
-    // console.log('value withCalculator', value)
-    console.log('Call onChange');
   } 
 };

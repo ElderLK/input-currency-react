@@ -38,6 +38,22 @@
   },
   "name": "input-currency-react",
   "author": "Elder Kuss",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ElderLK/input-currency-react.git"
+  },
+  "homepage": "https://github.com/ElderLK/input-currency-react",
+  "keywords": [
+    "react",
+    "typescript",
+    "input format",
+    "number format",
+    "currency format",
+    "money format",
+    "decimal format",
+    "money input",
+    "currency input"
+  ],
   "module": "dist/input-currency-react.esm.js",
   "size-limit": [
     {
