@@ -31,7 +31,7 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
     CurrencyInput, 
     Currencies, 
     Locales 
-  } from 'react-currency-input';
+  } from 'input-currency-react';
 
   const handleOnChange = (inputElement, maskedValue, value) => {};
 
@@ -64,7 +64,7 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
     CurrencyCalculatorInput, 
     Currencies, 
     Locales 
-  } from 'react-currency-input';
+  } from 'input-currency-react';
 
   const handleOnChange = (inputElement, maskedValue, value) => {};
 
@@ -87,7 +87,7 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
   import { 
     CurrencyInputProps, 
     useCurrencyFormat, 
-  } from 'react-currency-input';
+  } from 'input-currency-react';
 
   const MyCustomCurrencyInput:React.FC<CurrencyInputProps> = (props) => {
     const { value, options, onChangeEvent, ...otherProps } = props;
