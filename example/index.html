@@ -5,6 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Playground</title>
+
+    <style>
+      .calculator {
+        height: 300px;
+        width: 2500px;
+        background: #fff;
+      }
+
+      .table {
+        width: 100%;
+        height: 100%;
+        table-layout: fixed;
+
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      td {
+        cursor: pointer;
+      }
+
+      td:not(.operators-column):hover {
+        background-color: aliceblue;
+      }
+
+      .operators {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2rem 0 2rem;
+      }
+    </style>
   </head>
 
   <body>

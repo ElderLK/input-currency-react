@@ -27,13 +27,12 @@ export interface CurrencyInputProps
   options?: CurrencyFormatProps;
 }
 
-export const CurrencyInput: React.FC<CurrencyInputProps> = ({
-  children,
-  value,
-  options,
-  onChangeEvent,
-  ...otherProps
-}) => {
+export const CurrencyInput = React.forwardRef<
+  HTMLInputElement,
+  CurrencyInputProps
+>((props, ref) => {
+  const { children, value, options, onChangeEvent, ...otherProps } = props;
+
   const [
     formattedValue,
     handleOnChange,
@@ -43,13 +42,14 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
 
   return (
     <input
+      {...otherProps}
       type="text"
       style={{ textAlign: 'right' }}
       onChange={handleOnChange}
       onKeyDown={handleOnKeyDown}
       onClick={handleOnClick}
       value={formattedValue}
-      {...otherProps}
+      ref={ref}
     />
   );
-};
+});

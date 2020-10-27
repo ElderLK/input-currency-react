@@ -122,6 +122,7 @@ Option            | Default Value | Description
 value             | 0             | The initial value
 onChangeEvent     | n/a           | Callback function to handle value change
 autoFocus         | false         | Autofocus
+ref               | n/a           | Reference for HTMLInputElement 
 options           | default hooks | hooks props
 
 
