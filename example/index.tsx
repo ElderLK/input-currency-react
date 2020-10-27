@@ -26,11 +26,6 @@ const App = () => {
   React.useEffect(() => {
     if(inputRef.current){
       inputRef.current.focus();
-    
-      let nativeInputValueSetter = Object!.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")!.set;
-      nativeInputValueSetter!.call(inputRef.current, '12333322');
-      let ev2 = new Event('input', { bubbles: true});
-      inputRef.current.dispatchEvent(ev2);
     }
   }, [inputRef])
 
@@ -63,6 +58,7 @@ const App = () => {
           inputRef.current.dispatchEvent(event);
         }
       }
+      inputRef.current.focus();
     }
   }
 
@@ -73,19 +69,29 @@ const App = () => {
   console.log('===> value', value)
 
   return (
-    <div>
+    <div className="example">
       <h2>Currency Input</h2>
       <CurrencyInput 
         value="000" 
+        className="currency-input"
         // autoFocus={true}
         options={config}/>
       <h2>Currency Input w/ math</h2>
       <CurrencyCalculatorInput 
-        ref={inputRef}
+        style={{textAlign: "center"}}
+        className="currency-input-calculator"
         value="000" 
         onChangeEvent={handleChange}
         options={configCalculator}/>
-      <div>
+      <div className="calculator-div">
+        <h2>Currency Input w/ math and calculator</h2>
+        <CurrencyCalculatorInput 
+          ref={inputRef}
+          style={{textAlign: "center"}}
+          className="currency-input-calculator"
+          value="000" 
+          onChangeEvent={handleChange}
+          options={configCalculator}/>
           <table>
             <tbody>
                 <tr>

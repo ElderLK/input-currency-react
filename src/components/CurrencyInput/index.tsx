@@ -42,9 +42,9 @@ export const CurrencyInput = React.forwardRef<
 
   return (
     <input
+      style={{ textAlign: 'right' }}
       {...otherProps}
       type="text"
-      style={{ textAlign: 'right' }}
       onChange={handleOnChange}
       onKeyDown={handleOnKeyDown}
       onClick={handleOnClick}

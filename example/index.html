@@ -7,10 +7,37 @@
     <title>Playground</title>
 
     <style>
+      .example {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      /* .example > * {
+        transform: translateY(-50%);
+      } */
+
+      .currency-input:focus {
+        border-bottom: 4px solid green;
+      }
+
+      .currency-input-calculator:focus {
+        border-bottom: 4px solid blue;
+      }
+
       .calculator {
         height: 300px;
         width: 2500px;
         background: #fff;
+      }
+
+      .calculator-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       .table {
@@ -23,7 +50,13 @@
       }
 
       td {
-        cursor: pointer;
+        cursor: pointer;   
+      }
+
+      td:not(.operators-column) > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       td:not(.operators-column):hover {
@@ -35,7 +68,17 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 2rem 0 2rem;
+        padding: .5rem 0 .5rem;
+      }
+
+      .operators > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+ 
+      .operators > *:hover {
+        background-color: aliceblue;
       }
     </style>
   </head>
