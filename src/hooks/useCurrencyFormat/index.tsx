@@ -100,9 +100,9 @@ function useCurrencyFormat(
       if (!alwaysNegative && allowNegative) {
         const hasDash = value.charAt(0);
         if (lastEntry === '-' && hasDash !== '-') {
-          value = `-${value.replaceAll('-', '')}`;
+          value = `-${value.split('-').join('')}`;
         } else if (lastEntry === '+' || lastEntry === '-') {
-          value = `${value.replaceAll('-', '')}`;
+          value = `${value.split('-').join('')}`;
         }
       }
       const newValue = formatCurrency(removeNonNumericsExceptDash(value));

@@ -29,7 +29,7 @@ const App = () => {
     }
   }, [inputRef])
 
-  function handleClick(event: React.MouseEvent<any, MouseEvent>){
+  function handleClick(event: React.MouseEvent<any, MouseEvent>) {
     event.preventDefault();
     const { value: newValue, operator }  = event.currentTarget.dataset;
     if(inputRef.current && Object) {

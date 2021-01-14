@@ -116,7 +116,28 @@ export function basicCalculator(
   precision: number
 ): string {
   let numOne = StringFormatUSD(numberOne, precision);
-  let numTwo = StringFormatUSD(numberTwo, precision);
+  let numTwo = numberTwo;
+  if (operation === '+' || operation === '-') {
+    numTwo = StringFormatUSD(numberTwo, precision);
+  } else if (numberTwo.includes('.') && numberTwo.includes(',')) {
+    const [lastdot, lastcomma] = [
+      numberTwo.lastIndexOf('.'),
+      numberTwo.lastIndexOf(','),
+    ];
+    if (lastdot > lastcomma) {
+      numberTwo = numberTwo.split(',').join('');
+      numberTwo = `${numberTwo
+        .substring(0, lastdot)
+        .split('.')
+        .join('')}${numberTwo.substring(lastdot)}`;
+    } else {
+      numberTwo = numberTwo.split('.').join('');
+      numberTwo = `${numberTwo
+        .substring(0, lastcomma)
+        .split(',')
+        .join('')}${numberTwo.substring(lastcomma)}`;
+    }
+  }
 
   let total = Number(math_it_up[operation](numOne, numTwo));
 
@@ -151,4 +172,28 @@ export function removeEmpty<T extends GenericObject>(obj: T | undefined) {
     else if (obj[key] === undefined) delete obj[key];
   });
   return obj;
+}
+
+export function replaceAllCalc(value: string) {
+  if (value.includes('x')) {
+    value = value.split('x').join('*');
+  }
+
+  if (value.includes('÷')) {
+    value = value.split('÷').join('/');
+  }
+
+  return value;
+}
+
+export function replaceAllNoCalc(value: string) {
+  if (value.includes('*')) {
+    value = value.split('*').join('x');
+  }
+
+  if (value.includes('/')) {
+    value = value.split('/').join('÷');
+  }
+
+  return value;
 }

@@ -10,6 +10,8 @@ import {
   removeNonNumericsExceptDash,
   stringToCurrency,
   removeEmpty,
+  replaceAllCalc,
+  replaceAllNoCalc,
 } from '../../utils';
 
 type returnCurrencyCalculatorFormat = [
@@ -99,9 +101,8 @@ function useCurrencyFormatCalculator(
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       e.preventDefault();
-      let value = e.currentTarget.value
-        .replaceAll('x', '*')
-        .replaceAll('÷', '/');
+
+      let value = replaceAllCalc(e.currentTarget.value);
 
       let newValue = value;
 
@@ -138,29 +139,33 @@ function useCurrencyFormatCalculator(
               ? lastTwoCharacter[0]
               : '';
             let valueWithoutOperator = onlyOperation
-              .replaceAll(charToRemove, '')
+              .split(charToRemove)
+              .join('')
               .trim();
             valueWithoutOperator =
               valueWithoutOperator.charAt(0) === '-'
                 ? valueWithoutOperator.substring(1)
                 : valueWithoutOperator;
             newValue = `${dash}${valueWithoutOperator
-              .replaceAll(lastChar, '')
+              .split(lastChar)
+              .join('')
               .trim()} ${lastChar} `;
           }
         }
       } else {
         const values = extractNumberFromMathematicExpression(value);
         if (values) {
-          newValue = `${values.firstValue} ${values.operation} ${formatCurrency(
-            removeNonNumerics(values.lastValue)
-          )}`;
+          let lastValue = removeNonMathematicOperation(values.lastValue);
+          if (['-', '+'].includes(values.operation)) {
+            lastValue = formatCurrency(removeNonNumerics(values.lastValue));
+          }
+          newValue = `${values.firstValue} ${values.operation} ${lastValue}`;
         } else {
           newValue = formatCurrency(removeNonNumericsExceptDash(value), style);
         }
       }
 
-      newValue = newValue.replaceAll('*', 'x').replaceAll('/', '÷');
+      newValue = replaceAllNoCalc(newValue);
       callbackChange(e.currentTarget, newValue);
       setCurrency(newValue);
     },
@@ -181,9 +186,7 @@ function useCurrencyFormatCalculator(
   // handle detection of delete
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>): void => {
-      const value = e.currentTarget.value
-        .replaceAll('x', '*')
-        .replaceAll('÷', '/');
+      const value = replaceAllCalc(e.currentTarget.value);
 
       if (['Delete', 'Backspace'].includes(e.key)) {
         e.preventDefault();
@@ -207,9 +210,11 @@ function useCurrencyFormatCalculator(
               } else if (values.lastValue === '') {
                 newValue = formatCurrency(values.firstValue, style);
               } else {
-                newValue = `${values.firstValue} ${
-                  values.operation
-                } ${formatCurrency(values.lastValue)}`;
+                let lastValue = removeNonMathematicOperation(values.lastValue);
+                if (['-', '+'].includes(values.operation)) {
+                  lastValue = formatCurrency(values.lastValue);
+                }
+                newValue = `${values.firstValue} ${values.operation} ${lastValue}`;
               }
             } else {
               newValue = newCurrencyValue.trim();
@@ -230,7 +235,7 @@ function useCurrencyFormatCalculator(
           newValue = zerosFormatted;
         }
 
-        newValue = newValue.replace('*', 'x').replace('/', '÷');
+        newValue = replaceAllNoCalc(newValue);
         callbackChange(e.currentTarget, newValue);
         setCurrency(newValue);
       }
