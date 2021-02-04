@@ -18,7 +18,7 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
 
 Chrome | Edge | Firefox | Safari | Internet Explorer 11 | Opera |
 :------------| :-------------| :-------------| :-------------| :-------------| :-------------| 
-:heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:/:white_check_mark: |
+:heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :grey_question: |
 
 ## Compatible with react-hook-form
 
