@@ -5,13 +5,6 @@ import { CurrencyInput, CurrencyFormatProps,
   CurrencyCalculatorInput, CurrencyFormatCalculatorProps,
   Currencies, Locales } from '../.';
 
-const config: CurrencyFormatProps = {
-  precision: 3,
-  allowNegative: true,
-  i18nCurrency: Currencies["US Dollar"],
-  locale: Locales.English
-}
-
 const configCalculator: CurrencyFormatCalculatorProps = {
   precision: 2,
   // style: "decimal"
@@ -66,16 +59,46 @@ const App = () => {
     setValue(maskedValue);
   }
 
-  console.log('===> value', value)
-
   return (
     <div className="example">
-      <h2>Currency Input</h2>
+      <h2>Currency Input Style Currency Default (No options set)</h2>
       <CurrencyInput 
         value="000" 
         className="currency-input"
         // autoFocus={true}
-        options={config}/>
+        />
+      <h2>Currency Input Style Currency Default (Style: decimal)</h2>
+      <CurrencyInput 
+        value="000" 
+        className="currency-input"
+        options={{
+          style: "decimal"
+        }}
+        />
+      <h2>Currency Input Style Currency (locale: English)</h2>
+      <CurrencyInput 
+        value="000" 
+        className="currency-input"
+        // autoFocus={true}
+        options={{
+          precision: 3,
+          allowNegative: true,
+          style: "currency",
+          i18nCurrency: Currencies["US Dollar"],
+          locale: Locales.English,
+        }}/>
+      <h2>Currency Input Style Currency (locale: Portuguese (Brazil))</h2>
+      <CurrencyInput 
+        value="000" 
+        className="currency-input"
+        // autoFocus={true}
+        options={{
+          precision: 3,
+          allowNegative: true,
+          style: "currency",
+          i18nCurrency: Currencies["US Dollar"],
+          locale: Locales["Portuguese (Brazil)"],
+        }}/>
       <h2>Currency Input w/ math</h2>
       <CurrencyCalculatorInput 
         style={{textAlign: "center"}}

@@ -25,7 +25,7 @@ export interface CurrencyCalculatorInputProps
   ): void;
 }
 
-export const CurrencyCalculatorInput = React.forwardRef<
+export const CurrencyCalculatorInput = React.memo(React.forwardRef<
   HTMLInputElement,
   CurrencyCalculatorInputProps
 >((props, ref) => {
@@ -53,4 +53,4 @@ export const CurrencyCalculatorInput = React.forwardRef<
       ref={ref}
     />
   );
-});
+}));

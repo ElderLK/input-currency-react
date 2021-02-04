@@ -82,10 +82,11 @@ export const NumberToString = (
 ): string => {
   const round = Math.pow(10, precision);
   const splitNum = String(
-    (Math.round((numberNum + Number.EPSILON) * round) / round).toFixed(
+    (Math.round((numberNum) * round) / round).toFixed(
       precision
     )
   ).split('.');
+
   let sinal: string = '';
   let numberInter: any = splitNum[0];
   if (['+', '-'].includes(splitNum[0][0])) {
@@ -196,4 +197,38 @@ export function replaceAllNoCalc(value: string) {
   }
 
   return value;
+}
+
+export function deepClone(obj: any): any {
+	// Se não for array ou objeto, retorna null
+	if (typeof obj !== 'object' || obj === null) {
+		return obj;
+	}
+
+	let cloned : any, i;
+
+	// Handle: Date
+	if (obj instanceof Date) {
+		cloned = new Date(obj.getTime());
+		return cloned;
+	}
+
+	// Handle: array
+	if (obj instanceof Array) {
+		let l;
+		cloned = [];
+		for (i = 0, l = obj.length; i < l; i++) {
+			cloned[i] = deepClone(obj[i]);
+		}
+
+		return cloned;
+	}
+
+	// Handle: object
+	cloned = {};
+	for (i in obj) if (obj.hasOwnProperty(i)) {
+		cloned[i] = deepClone(obj[i]);
+	}
+
+	return cloned;
 }

@@ -14,6 +14,48 @@ This libraries propose to introduce a hooks capable of formate currencies and ca
 
 [On Code Sandbox](https://codesandbox.io/s/input-currency-react-7vsbo?file=/src/App.tsx)
 
+## Browser compatibility (Tested)
+
+Chrome | Edge | Firefox | Safari | Internet Explorer 11 | Opera |
+:------------| :-------------| :-------------| :-------------| :-------------| :-------------| 
+:heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:/:white_check_mark: |
+
+## Compatible with react-hook-form
+
+#### Ex. Code:
+
+```tsx
+  import React from react;
+  import { useForm, Controller } from "react-hook-form";
+
+  const MyCustomForm = () => {
+    const { 
+        control,
+        handleSubmit, 
+    } = useForm();
+
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+        name="value"
+        control={control}
+        defaultValue="0,00"
+        render={({value, onChange}) => (
+          <CurrencyInput 
+            value={ value } 
+            options={{ style: "decimal", allowNegative: false }}
+            onChangeEvent={(_, maskedValue) => { 
+              onChange(maskedValue);
+            }}
+            required={true}
+          />
+        )}
+        />
+      </form>
+    )
+  }
+```
+
 ## How to use Components
 
 ### Only Currency Input

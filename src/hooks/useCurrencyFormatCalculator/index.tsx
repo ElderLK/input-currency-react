@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+
 import {
   basicCalculator,
   extractNumberFromMathematicExpression,
@@ -12,7 +13,10 @@ import {
   removeEmpty,
   replaceAllCalc,
   replaceAllNoCalc,
+  deepClone,
 } from '../../utils';
+
+import '../../utils/prototypes'
 
 type returnCurrencyCalculatorFormat = [
   string,
@@ -56,7 +60,7 @@ function useCurrencyFormatCalculator(
     i18nCurrency,
     onChangeCallBack,
   } = Object.assign(
-    DefaultFormatProps,
+    deepClone(DefaultFormatProps),
     removeEmpty<CurrencyFormatCalculatorProps>(options)
   );
 

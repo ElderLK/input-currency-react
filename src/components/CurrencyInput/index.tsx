@@ -27,7 +27,7 @@ export interface CurrencyInputProps
   options?: CurrencyFormatProps;
 }
 
-export const CurrencyInput = React.forwardRef<
+export const CurrencyInput = React.memo(React.forwardRef<
   HTMLInputElement,
   CurrencyInputProps
 >((props, ref) => {
@@ -52,4 +52,4 @@ export const CurrencyInput = React.forwardRef<
       ref={ref}
     />
   );
-});
+}));

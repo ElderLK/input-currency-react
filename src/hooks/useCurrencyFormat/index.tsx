@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import {
+  deepClone,
   removeEmpty,
   removeLeadingZeroes,
   removeNonNumerics,
@@ -44,16 +45,22 @@ function useCurrencyFormat(
   options?: CurrencyFormatProps
 ): returnCurrencyFormat {
   const [currency, setCurrency] = useState<string>('');
-  const optionsConfig = Object.assign(
-    DefaultFormatProps,
+  const {
+    precision,
+    style,
+    locale,
+    i18nCurrency,
+    allowNegative,
+    alwaysNegative,
+    onChangeCallBack,
+  } = Object.assign(
+    deepClone(DefaultFormatProps),
     removeEmpty<CurrencyFormatProps>(options)
   );
 
   // format string to currency
   const formatCurrency = useCallback(
     (rawVal: string) => {
-      const { precision, style, locale, i18nCurrency } = optionsConfig;
-
       return Number(stringToCurrency(rawVal, precision)).toLocaleString(
         locale,
         {
@@ -64,29 +71,27 @@ function useCurrencyFormat(
         }
       );
     },
-    [optionsConfig]
+    [ precision, style, locale, i18nCurrency ]
   );
 
   // initialize
   useEffect(() => {
-    const { alwaysNegative } = optionsConfig;
     const operator =
       initialValue.charAt(0) === '-' || alwaysNegative ? '-' : '';
     setCurrency(
       `${operator}${formatCurrency(removeNonNumerics(initialValue))}`
     );
-  }, [initialValue, optionsConfig, formatCurrency]);
+  }, [initialValue, alwaysNegative, formatCurrency]);
 
   const callbackChange = useCallback(
     (inputElement: EventTarget & HTMLInputElement, maskedValue: string) => {
-      const { precision, onChangeCallBack } = optionsConfig;
       onChangeCallBack(
         inputElement,
         maskedValue,
         stringToCurrency(maskedValue, precision)
       );
     },
-    [optionsConfig]
+    [ precision, onChangeCallBack ]
   );
 
   // removeNonNumerics any entered value
@@ -95,7 +100,6 @@ function useCurrencyFormat(
       e.preventDefault();
       let value = e.currentTarget.value;
       const lastEntry = value.substring(value.length - 1);
-      const { alwaysNegative, allowNegative } = optionsConfig;
 
       if (!alwaysNegative && allowNegative) {
         const hasDash = value.charAt(0);
@@ -109,7 +113,7 @@ function useCurrencyFormat(
       callbackChange(e.currentTarget, newValue);
       setCurrency(newValue);
     },
-    [optionsConfig, callbackChange, formatCurrency]
+    [alwaysNegative, allowNegative , callbackChange, formatCurrency]
   );
 
   // handle click
@@ -126,7 +130,6 @@ function useCurrencyFormat(
     (e: React.KeyboardEvent<HTMLInputElement>): void => {
       if (['Backspace', 'Delete'].includes(e.key)) {
         e.preventDefault();
-        const { precision, alwaysNegative } = optionsConfig;
         const sanitized = removeLeadingZeroes(removeNonNumerics(currency));
         let newValue = '';
         if (sanitized.length > 1) {
@@ -149,7 +152,7 @@ function useCurrencyFormat(
       // keep cursor in the right
       e.currentTarget.setSelectionRange(currency.length, currency.length);
     },
-    [currency, optionsConfig, callbackChange, formatCurrency]
+    [currency, precision, alwaysNegative, callbackChange, formatCurrency]
   );
 
   return [currency, onChange, onKeyDown, onClick];

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -41,6 +41,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ElderLK/input-currency-react.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "homepage": "https://github.com/ElderLK/input-currency-react",
   "keywords": [
